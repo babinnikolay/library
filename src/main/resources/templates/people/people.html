@@ -5,11 +5,14 @@
     <title>Readers</title>
 </head>
 <body>
-<div th:each="person : ${people}">
-    <p>
+<div th:insert="~{general :: menu}"></div>
+<p th:each="person : ${people}">
     <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">name</a>
-    </p>
-</div>
-
+    <a th:href="@{/people/{id}/edit (id=${person.getId()})}">edit</a>
+    <a th:href="@{/people/{id}/delete (id=${person.getId()})}">delete</a>
+</p>
+<p>
+    <a th:href="@{/people/new}">Add new person</a>
+</p>
 </body>
 </html>

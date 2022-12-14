@@ -3,9 +3,8 @@ package ru.babinnikolay.library.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.babinnikolay.library.model.Person;
-import ru.babinnikolay.library.repository.Repository;
+import ru.babinnikolay.library.repository.PeopleRepository;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class PeopleService {
-    private final Repository repository;
+    private final PeopleRepository repository;
     public List<Person> findAll() {
         return repository.findAll();
     }
@@ -25,5 +24,13 @@ public class PeopleService {
 
     public void save(Person person) {
         repository.save(person);
+    }
+
+    public void update(Long id, Person person) {
+        repository.update(id, person);
+    }
+
+    public void deleteById(Long id) {
+        repository.deleteById(id);
     }
 }
