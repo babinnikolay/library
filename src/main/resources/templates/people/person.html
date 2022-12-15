@@ -9,5 +9,10 @@
     <label th:text="${person.getId()}">id</label>
     <label th:text="${person.getName()}">name</label>
 </p>
+<div th:if="${books.size() == 0}">Did not take books</div>
+<div th:if="${books.size() > 0}">Readers books</div>
+<p th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">name</a>
+</p>
 </body>
 </html>

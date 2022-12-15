@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+<div th:insert="~{general :: menu}"></div>
+<p th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}" th:text="${book.getName()}">name</a>
+    <a th:href="@{/books/{id}/edit (id=${book.getId()})}">edit</a>
+    <a th:href="@{/books/{id}/delete (id=${book.getId()})}">delete</a>
+</p>
+<p>
+    <a th:href="@{/books/new}">Add new book</a>
+</p>
+</body>
+</html>

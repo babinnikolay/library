@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.babinnikolay.library.model.Person;
+import ru.babinnikolay.library.service.BookService;
 import ru.babinnikolay.library.service.PeopleService;
 
 /**
@@ -18,6 +19,7 @@ import ru.babinnikolay.library.service.PeopleService;
 public class PeopleController {
 
     private final PeopleService peopleService;
+    private final BookService bookService;
 
     @GetMapping
     public String people(Model model) {
@@ -30,6 +32,7 @@ public class PeopleController {
     public String getPerson(Model model, @PathVariable Long id) {
         log.info("Get person by id={}", id);
         model.addAttribute("person", peopleService.findById(id));
+        model.addAttribute("books", bookService.findAllByPersonId(id));
         return "people/person";
     }
 
