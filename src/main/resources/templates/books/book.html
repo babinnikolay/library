@@ -9,5 +9,24 @@
     <label th:text="${book.getId()}">id</label>
     <label th:text="${book.getName()}">name</label>
 </p>
+<p th:if="${person} != null">
+    <label th:text="${person.getId()}">id</label>
+    <label th:text="${person.getName()}">name</label>
+    <form th:if="${person} != null" th:action="@{/books/{id}/release(id=${book.getId()})}" th:method="POST" th:object="${book}">
+        <input type="submit" value="Release the book">
+    </form>
+</p>
+<p th:if="${person} == null">
+    <label>Book is free</label>
+    <form th:if="${person} == null"
+            th:action="@{/books/{id}/appoint(id=${book.getId()})}" th:method="POST" th:object="${selected}">
+        <select th:field="*{id}">
+            <option th:each="selected : ${people}"
+                    th:value="${selected.getId()}"
+                    th:text="${selected.getName()}">name</option>
+        </select>
+        <input type="submit" value="Appoint the book">
+    </form>
+</p>
 </body>
 </html>

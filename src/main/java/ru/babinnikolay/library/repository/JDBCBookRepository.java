@@ -50,4 +50,14 @@ public class JDBCBookRepository implements BookRepository{
                 "    join books b on b.book_id = pb.book_id" +
                 " where p.person_id=?", new Object[]{personId}, new BookRowMapper());
     }
+
+    @Override
+    public void releaseById(Long bookId) {
+        jdbcTemplate.update("DELETE FROM people_book WHERE book_id=?", bookId);
+    }
+
+    @Override
+    public void appointByIdAndPersonId(Long bookId, long personId) {
+        jdbcTemplate.update("INSERT INTO people_book (person_id, book_id) VALUES (?, ?)", personId, bookId);
+    }
 }

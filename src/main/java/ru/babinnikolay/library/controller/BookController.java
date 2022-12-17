@@ -5,8 +5,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.babinnikolay.library.model.Book;
+import ru.babinnikolay.library.model.Person;
 import ru.babinnikolay.library.service.BookService;
 import org.springframework.ui.Model;
+import ru.babinnikolay.library.service.PeopleService;
 
 /**
  * @author Babin Nikolay
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 @AllArgsConstructor
 public class BookController {
     private final BookService bookService;
+    private final PeopleService peopleService;
 
     @GetMapping
     public String books(Model model) {
@@ -29,6 +32,9 @@ public class BookController {
     public String getBook(Model model, @PathVariable Long id) {
         log.info("Get book by id={}", id);
         model.addAttribute("book", bookService.findById(id));
+        model.addAttribute("person", peopleService.findByBookId(id));
+        model.addAttribute("people", peopleService.findAll());
+        model.addAttribute("selected", new Person());
         return "books/book";
     }
 
@@ -76,4 +82,17 @@ public class BookController {
         return "redirect:/books";
     }
 
+    @PostMapping("/{id}/release")
+    public String release(@PathVariable Long id) {
+        log.info("Release book id={}", id);
+        bookService.releaseBook(id);
+        return "redirect:/books/" + id;
+    }
+
+    @PostMapping("/{id}/appoint")
+    public String appoint(@PathVariable("id") Long bookId, @ModelAttribute("selected") Person person) {
+        log.info("Appoint book id={}, person={}", bookId, person);
+        bookService.appointBook(bookId, person.getId());
+        return "redirect:/books/" + bookId;
+    }
 }

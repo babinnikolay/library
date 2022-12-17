@@ -39,4 +39,12 @@ public class BookService {
     public List<Book> findAllByPersonId(Long personId) {
         return bookRepository.findAllByPersonId(personId);
     }
+
+    public void releaseBook(Long id) {
+        bookRepository.releaseById(id);
+    }
+
+    public void appointBook(Long bookId, long personId) {
+        bookRepository.appointByIdAndPersonId(bookId, personId);
+    }
 }

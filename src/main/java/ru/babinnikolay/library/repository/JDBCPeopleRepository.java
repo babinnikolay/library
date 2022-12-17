@@ -43,4 +43,12 @@ public class JDBCPeopleRepository implements PeopleRepository {
     public void deleteById(Long id) {
         jdbcTemplate.update("DELETE FROM people WHERE person_id=?", id);
     }
+
+    @Override
+    public Person findByBookId(Long bookId) {
+        return jdbcTemplate.query("SELECT p.person_id, p.name FROM people_book JOIN people p " +
+                        "on people_book.person_id = p.person_id\n" +
+                " WHERE people_book.book_id = ?", new Object[]{bookId}, new PersonRowMapper())
+                .stream().findAny().orElse(null);
+    }
 }

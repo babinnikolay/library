@@ -17,4 +17,6 @@ public interface PeopleRepository {
     void update(Long id, Person person);
 
     void deleteById(Long id);
+
+    Person findByBookId(Long bookId);
 }

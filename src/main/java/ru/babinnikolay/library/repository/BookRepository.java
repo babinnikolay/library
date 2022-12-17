@@ -20,4 +20,8 @@ public interface BookRepository {
     void deleteById(Long id);
 
     List<Book> findAllByPersonId(Long personId);
+
+    void releaseById(Long id);
+
+    void appointByIdAndPersonId(Long bookId, long personId);
 }

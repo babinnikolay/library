@@ -13,24 +13,28 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class PeopleService {
-    private final PeopleRepository repository;
+    private final PeopleRepository peopleRepository;
     public List<Person> findAll() {
-        return repository.findAll();
+        return peopleRepository.findAll();
     }
 
     public Person findById(Long id) {
-        return repository.findById(id);
+        return peopleRepository.findById(id);
     }
 
     public void save(Person person) {
-        repository.save(person);
+        peopleRepository.save(person);
     }
 
     public void update(Long id, Person person) {
-        repository.update(id, person);
+        peopleRepository.update(id, person);
     }
 
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        peopleRepository.deleteById(id);
+    }
+
+    public Person findByBookId(Long bookId) {
+        return peopleRepository.findByBookId(bookId);
     }
 }
